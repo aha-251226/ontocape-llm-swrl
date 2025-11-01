@@ -1,0 +1,51 @@
+Scenario,Equipment,OperatingTemp_C,Pressure_MPa,NominalDiameter_mm,Material,TracingType,Insulation,RelevantRule,ExpectedInference
+1,Valve,40,3.26,15,Alloy Steel,Electrical,No,AR,Violation
+2,Exchanger,190,3.84,20,Alloy Steel,Steam,Yes,DR,Compliant
+3,Pipe,90,7.03,15,SS316L,None,No,CR,Violation
+4,Pipe,90,1.46,100,Carbon Steel,Steam,No,DR,Compliant
+5,Pipe,120,6.67,80,Carbon Steel,Steam,Yes,DR,Violation
+6,Vessel,40,5.62,15,Carbon Steel,Electrical,Yes,CR,Violation
+7,Exchanger,70,2.72,80,Carbon Steel,Electrical,No,DR,Violation
+8,Exchanger,150,4.73,50,Alloy Steel,None,Yes,DR,Violation
+9,Pipe,400,6.51,100,Carbon Steel,Steam,Yes,AR,Compliant
+10,Tank,220,2.36,25,SS316L,Steam,No,CR,Compliant
+11,Pump,70,2.23,15,Alloy Steel,None,Yes,DR,Violation
+12,Pipe,90,6.44,15,SS316L,Electrical,Yes,DR,Violation
+13,Exchanger,220,2.2,80,SS316L,None,No,CR,Compliant
+14,Valve,120,0.82,80,SS316L,None,Yes,CR,Violation
+15,Exchanger,90,4.45,80,SS316L,None,Yes,AR,Violation
+16,Valve,70,0.54,15,Alloy Steel,Steam,No,BR,Compliant
+17,Valve,70,3.58,25,SS316L,Electrical,No,ER,Violation
+18,Pump,190,4.1,15,Alloy Steel,Steam,Yes,DR,Compliant
+19,Pump,20,1.68,15,SS316L,Steam,Yes,CR,Compliant
+20,Pump,150,7.26,50,Alloy Steel,Electrical,Yes,CR,Violation
+21,Pipe,400,0.91,50,Carbon Steel,Steam,Yes,DR,Violation
+22,Vessel,120,6.66,20,Alloy Steel,Steam,No,CR,Compliant
+23,Vessel,70,7.27,50,SS316L,Electrical,Yes,ER,Violation
+24,Valve,120,4.99,15,SS316L,None,No,DR,Violation
+25,Pump,70,4.22,15,Carbon Steel,Steam,Yes,BR,Violation
+26,Exchanger,220,3.69,25,Alloy Steel,Electrical,Yes,ER,Compliant
+27,Tank,120,5.05,80,SS316L,Steam,Yes,AR,Violation
+28,Vessel,120,0.85,50,Alloy Steel,Steam,No,DR,Violation
+29,Valve,220,1.32,25,Carbon Steel,Steam,No,BR,Violation
+30,Vessel,215,5.89,100,Alloy Steel,None,Yes,DR,Violation
+31,Pump,20,0.74,20,SS316L,Electrical,Yes,CR,Violation
+32,Vessel,70,7.77,100,SS316L,None,Yes,DR,Compliant
+33,Exchanger,40,4.34,50,SS316L,None,Yes,ER,Compliant
+34,Tank,220,4.8,100,Carbon Steel,None,No,BR,Compliant
+35,Vessel,70,6.18,15,SS316L,Electrical,No,BR,Compliant
+36,Tank,120,0.94,20,SS316L,Electrical,No,BR,Compliant
+37,Valve,120,4.52,50,Alloy Steel,None,No,ER,Compliant
+38,Tank,90,6.3,50,Carbon Steel,None,Yes,AR,Compliant
+39,Pipe,120,0.78,100,Alloy Steel,Electrical,Yes,DR,Violation
+40,Valve,40,1.2,50,SS316L,Steam,Yes,ER,Violation
+41,Pipe,120,6.64,20,Carbon Steel,Electrical,Yes,AR,Compliant
+42,Pump,90,2.49,80,Carbon Steel,Steam,No,CR,Violation
+43,Exchanger,120,5.5,50,Alloy Steel,Steam,No,CR,Violation
+44,Pipe,220,6.55,80,Carbon Steel,None,No,CR,Violation
+45,Pipe,150,2.9,50,Carbon Steel,Electrical,Yes,DR,Violation
+46,Vessel,190,4.77,100,Alloy Steel,None,No,DR,Compliant
+47,Exchanger,20,5.14,25,Alloy Steel,Electrical,No,DR,Compliant
+48,Vessel,40,2.48,100,Alloy Steel,None,No,BR,Compliant
+49,Pipe,120,2.07,20,SS316L,None,Yes,CR,Compliant
+50,Pipe,190,6.88,25,SS316L,None,Yes,CR,Violation

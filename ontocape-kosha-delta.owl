@@ -1,0 +1,415 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.ontocape.org/kosha-delta#"
+     xml:base="http://www.ontocape.org/kosha-delta"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:ontocape="http://www.ontocape.org/OntoCAPE/">
+    
+    <owl:Ontology rdf:about="http://www.ontocape.org/kosha-delta">
+        <owl:versionIRI rdf:resource="http://www.ontocape.org/kosha-delta/1.0"/>
+        <rdfs:comment xml:lang="en">OntoCAPE extension with KOSHA safety regulations
+        
+Paper: "Hierarchical LLM-SWRL Integration for Scalable and Consistent Ontology Expansion"
+Authors: Miyoung Uhm, Ghang Lee, David H. Jeong
+
+This Δ-Module contains 46 new classes and 44 RDF triples automatically extracted from 
+KOSHA D-5, D-29, D-37, and D-52 standards using the SPIRES-SWRL integration framework.
+</rdfs:comment>
+        <owl:imports rdf:resource="http://www.ontocape.org/OntoCAPE/"/>
+        <prov:wasDerivedFrom>KOSHA Standards D-5, D-29, D-37, D-52</prov:wasDerivedFrom>
+        <prov:generatedAtTime rdf:datatype="xsd:dateTime">2025-01-01T00:00:00Z</prov:generatedAtTime>
+    </owl:Ontology>
+
+    <!-- ================================================================= -->
+    <!-- Equipment Classes Extended from OntoCAPE System Hierarchy         -->
+    <!-- ================================================================= -->
+
+    <!-- Electrical Tracing Equipment -->
+    <owl:Class rdf:about="#ElectricalTracing">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:label xml:lang="en">Electrical Tracing</rdfs:label>
+        <rdfs:comment>Equipment for maintaining temperature using electrical heating. 
+        Derived from KOSHA D-29 Section 7.4.2: "Electric tracing shall not be used when 
+        the operating temperature exceeds 215°C."</rdfs:comment>
+        <prov:wasDerivedFrom>KOSHA D-29-7.4.2</prov:wasDerivedFrom>
+    </owl:Class>
+
+    <!-- Steam Tracing Equipment -->
+    <owl:Class rdf:about="#SteamTracing">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:label xml:lang="en">Steam Tracing</rdfs:label>
+        <rdfs:comment>Equipment for maintaining temperature using steam heating.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Explosion-Proof Equipment -->
+    <owl:Class rdf:about="#ExplosionProofEquipment">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:label xml:lang="en">Explosion-Proof Equipment</rdfs:label>
+        <rdfs:comment>Equipment certified for hazardous area installation.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Safety Valve -->
+    <owl:Class rdf:about="#SafetyValve">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Valve"/>
+        <rdfs:label xml:lang="en">Safety Valve</rdfs:label>
+        <rdfs:comment>Pressure relief device. Derived from KOSHA D-5 pressure protection requirements.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Control Valve -->
+    <owl:Class rdf:about="#ControlValve">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Valve"/>
+        <rdfs:label xml:lang="en">Control Valve</rdfs:label>
+        <rdfs:comment>Automated valve with fail-safe position requirement.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Pressure Vessel -->
+    <owl:Class rdf:about="#PressureVessel">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Vessel"/>
+        <rdfs:label xml:lang="en">Pressure Vessel</rdfs:label>
+        <rdfs:comment>Vessel subject to pressure design regulations per KOSHA D-37.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Vertical Vessel -->
+    <owl:Class rdf:about="#VerticalVessel">
+        <rdfs:subClassOf rdf:resource="#PressureVessel"/>
+        <rdfs:label xml:lang="en">Vertical Vessel</rdfs:label>
+        <rdfs:comment>Vertical orientation vessel with vent at top, drain at bottom.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Tower -->
+    <owl:Class rdf:about="#Tower">
+        <rdfs:subClassOf rdf:resource="#VerticalVessel"/>
+        <rdfs:label xml:lang="en">Tower</rdfs:label>
+        <rdfs:comment>Distillation or absorption tower with tray count specification.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Storage Tank -->
+    <owl:Class rdf:about="#StorageTank">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Vessel"/>
+        <rdfs:label xml:lang="en">Storage Tank</rdfs:label>
+        <rdfs:comment>Tank with material-temperature-based design requirements.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Heat Exchanger -->
+    <owl:Class rdf:about="#HeatExchanger">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:label xml:lang="en">Heat Exchanger</rdfs:label>
+        <rdfs:comment>Heat transfer equipment with cooling water design temperature 90°C.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Pump with Strainer Requirement -->
+    <owl:Class rdf:about="#PumpWithStrainer">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Pump"/>
+        <rdfs:label xml:lang="en">Pump with Strainer</rdfs:label>
+        <rdfs:comment>Pump requiring upstream strainer installation per KOSHA D-5.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Compressor -->
+    <owl:Class rdf:about="#Compressor">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:label xml:lang="en">Compressor</rdfs:label>
+        <rdfs:comment>Compression equipment requiring strainer installation.</rdfs:comment>
+    </owl:Class>
+
+    <!-- ================================================================= -->
+    <!-- Piping System Classes                                             -->
+    <!-- ================================================================= -->
+
+    <!-- Piping with Minimum Diameter Constraint -->
+    <owl:Class rdf:about="#RegulatedPiping">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Piping"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#hasMinimumDiameter"/>
+                <owl:someValuesFrom rdf:resource="xsd:double"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Regulated Piping</rdfs:label>
+        <rdfs:comment>Piping with minimum 20mm (3/4 inch) diameter per KOSHA D-5.
+        Critical rule mentioned in Paper Section 4.3, Figure 4.</rdfs:comment>
+        <prov:wasDerivedFrom>KOSHA D-5-4.2.1</prov:wasDerivedFrom>
+    </owl:Class>
+
+    <!-- Pipe Rack Piping -->
+    <owl:Class rdf:about="#PipeRackPiping">
+        <rdfs:subClassOf rdf:resource="#RegulatedPiping"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#hasMinimumDiameter"/>
+                <owl:hasValue rdf:datatype="xsd:double">50.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Pipe Rack Piping</rdfs:label>
+        <rdfs:comment>Piping on pipe racks with minimum 50mm (2 inch) diameter per KOSHA D-52.</rdfs:comment>
+    </owl:Class>
+
+    <!-- ================================================================= -->
+    <!-- Safety Constraint Classes                                         -->
+    <!-- ================================================================= -->
+
+    <!-- Temperature Constraint -->
+    <owl:Class rdf:about="#TemperatureConstraint">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Property"/>
+        <rdfs:label xml:lang="en">Temperature Constraint</rdfs:label>
+        <rdfs:comment>Temperature limit or range specification.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Pressure Constraint -->
+    <owl:Class rdf:about="#PressureConstraint">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Property"/>
+        <rdfs:label xml:lang="en">Pressure Constraint</rdfs:label>
+        <rdfs:comment>Pressure limit or range specification.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Diameter Constraint -->
+    <owl:Class rdf:about="#DiameterConstraint">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Property"/>
+        <rdfs:label xml:lang="en">Diameter Constraint</rdfs:label>
+        <rdfs:comment>Minimum or maximum diameter specification.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Velocity Constraint -->
+    <owl:Class rdf:about="#VelocityConstraint">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Property"/>
+        <rdfs:label xml:lang="en">Velocity Constraint</rdfs:label>
+        <rdfs:comment>Liquid velocity limit (≤6 m/s general, ≤10 m/s absolute).</rdfs:comment>
+    </owl:Class>
+
+    <!-- Material Constraint -->
+    <owl:Class rdf:about="#MaterialConstraint">
+        <rdfs:subClassOf rdf:resource="http://www.ontocape.org/OntoCAPE/Property"/>
+        <rdfs:label xml:lang="en">Material Constraint</rdfs:label>
+        <rdfs:comment>Material specification and temperature compatibility.</rdfs:comment>
+    </owl:Class>
+
+    <!-- ================================================================= -->
+    <!-- Data Properties for Safety Rules                                  -->
+    <!-- ================================================================= -->
+
+    <!-- Operating Temperature -->
+    <owl:DatatypeProperty rdf:about="#hasOperatingTemperature">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has operating temperature</rdfs:label>
+        <rdfs:comment>Operating temperature in degrees Celsius.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Design Temperature -->
+    <owl:DatatypeProperty rdf:about="#hasDesignTemperature">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has design temperature</rdfs:label>
+        <rdfs:comment>Design temperature = operating temperature + 30°C per KOSHA D-5.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Safety Design Temperature -->
+    <owl:DatatypeProperty rdf:about="#hasSafetyDesignTemperature">
+        <rdfs:subPropertyOf rdf:resource="#hasDesignTemperature"/>
+        <rdfs:label xml:lang="en">has safety design temperature</rdfs:label>
+        <rdfs:comment>Design temperature with safety margin.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Operating Pressure -->
+    <owl:DatatypeProperty rdf:about="#hasOperatingPressure">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has operating pressure</rdfs:label>
+        <rdfs:comment>Operating pressure in MPa.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Design Pressure -->
+    <owl:DatatypeProperty rdf:about="#hasDesignPressure">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has design pressure</rdfs:label>
+        <rdfs:comment>Design pressure calculated per KOSHA D-37 formulas.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Minimum Diameter -->
+    <owl:DatatypeProperty rdf:about="#hasMinimumDiameter">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Piping"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has minimum diameter</rdfs:label>
+        <rdfs:comment>Minimum nominal diameter in millimeters. ≥20mm per KOSHA D-5.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Nominal Diameter -->
+    <owl:DatatypeProperty rdf:about="#hasNominalDiameter">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Piping"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has nominal diameter</rdfs:label>
+        <rdfs:comment>Nominal diameter per API 5L DN/NPS standard.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Outside Diameter -->
+    <owl:DatatypeProperty rdf:about="#hasOutsideDiameter">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Piping"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has outside diameter</rdfs:label>
+        <rdfs:comment>Outside diameter conforming to API 5L standard.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Liquid Velocity -->
+    <owl:DatatypeProperty rdf:about="#hasLiquidVelocity">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Piping"/>
+        <rdfs:range rdf:resource="xsd:double"/>
+        <rdfs:label xml:lang="en">has liquid velocity</rdfs:label>
+        <rdfs:comment>Liquid flow velocity in m/s. Limit: ≤6 m/s (general), ≤10 m/s (absolute).</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Tray Count -->
+    <owl:DatatypeProperty rdf:about="#hasTrayCount">
+        <rdfs:domain rdf:resource="#Tower"/>
+        <rdfs:range rdf:resource="xsd:integer"/>
+        <rdfs:label xml:lang="en">has tray count</rdfs:label>
+        <rdfs:comment>Number of trays in tower or reactor per KOSHA D-29.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- ================================================================= -->
+    <!-- Object Properties for Equipment Relations                         -->
+    <!-- ================================================================= -->
+
+    <!-- Has Tracing Type -->
+    <owl:ObjectProperty rdf:about="#hasTracingType">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#ElectricalTracing"/>
+                    <rdf:Description rdf:about="#SteamTracing"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <rdfs:label xml:lang="en">has tracing type</rdfs:label>
+        <rdfs:comment>Type of temperature maintenance system.</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Has Material -->
+    <owl:ObjectProperty rdf:about="#hasMaterial">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="http://www.ontocape.org/OntoCAPE/Material"/>
+        <rdfs:label xml:lang="en">has material</rdfs:label>
+        <rdfs:comment>Construction material specification.</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Is Installed In -->
+    <owl:ObjectProperty rdf:about="#isInstalledIn">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:label xml:lang="en">is installed in</rdfs:label>
+        <rdfs:comment>Installation location relationship.</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Has Location -->
+    <owl:ObjectProperty rdf:about="#hasLocation">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:label xml:lang="en">has location</rdfs:label>
+        <rdfs:comment>Spatial location (Top, Bottom, etc.).</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Has Failure Mode -->
+    <owl:ObjectProperty rdf:about="#hasFailureMode">
+        <rdfs:domain rdf:resource="#ControlValve"/>
+        <rdfs:label xml:lang="en">has failure mode</rdfs:label>
+        <rdfs:comment>Failure position: Fail Open (FO), Fail Closed (FC), Fail In Place (FIP).</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- ================================================================= -->
+    <!-- Boolean Properties for Compliance Checking                        -->
+    <!-- ================================================================= -->
+
+    <!-- Is Prohibited -->
+    <owl:DatatypeProperty rdf:about="#isProhibited">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="xsd:boolean"/>
+        <rdfs:label xml:lang="en">is prohibited</rdfs:label>
+        <rdfs:comment>Indicates regulatory prohibition (inferred by SWRL rules).</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Is Permitted -->
+    <owl:DatatypeProperty rdf:about="#isPermitted">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="xsd:boolean"/>
+        <rdfs:label xml:lang="en">is permitted</rdfs:label>
+        <rdfs:comment>Indicates regulatory compliance (inferred by SWRL rules).</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Has Size Violation -->
+    <owl:DatatypeProperty rdf:about="#hasSizeViolation">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Piping"/>
+        <rdfs:range rdf:resource="xsd:boolean"/>
+        <rdfs:label xml:lang="en">has size violation</rdfs:label>
+        <rdfs:comment>Indicates diameter constraint violation (diameter < 20mm).</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Requires Personnel Protection -->
+    <owl:DatatypeProperty rdf:about="#requiresPersonnelProtection">
+        <rdfs:domain rdf:resource="http://www.ontocape.org/OntoCAPE/Apparatus"/>
+        <rdfs:range rdf:resource="xsd:boolean"/>
+        <rdfs:label xml:lang="en">requires personnel protection</rdfs:label>
+        <rdfs:comment>Indicates need for insulation when surface temp > 65°C.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Has Strainer -->
+    <owl:DatatypeProperty rdf:about="#hasStrainer">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.ontocape.org/OntoCAPE/Pump"/>
+                    <rdf:Description rdf:about="#Compressor"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="xsd:boolean"/>
+        <rdfs:label xml:lang="en">has strainer</rdfs:label>
+        <rdfs:comment>Indicates presence of required upstream strainer.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- ================================================================= -->
+    <!-- Material Individuals                                              -->
+    <!-- ================================================================= -->
+
+    <owl:NamedIndividual rdf:about="#KilledCarbonSteel">
+        <rdf:type rdf:resource="http://www.ontocape.org/OntoCAPE/Material"/>
+        <rdfs:label>Killed Carbon Steel</rdfs:label>
+        <rdfs:comment>Carbon steel with temperature limits: -29°C to 425°C per KOSHA D-37.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#StainlessSteel316L">
+        <rdf:type rdf:resource="http://www.ontocape.org/OntoCAPE/Material"/>
+        <rdfs:label>Stainless Steel 316L</rdfs:label>
+        <rdfs:comment>Corrosion-resistant stainless steel.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#AlloySteel">
+        <rdf:type rdf:resource="http://www.ontocape.org/OntoCAPE/Material"/>
+        <rdfs:label>Alloy Steel</rdfs:label>
+        <rdfs:comment>High-strength alloy steel.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <!-- ================================================================= -->
+    <!-- Location Individuals                                              -->
+    <!-- ================================================================= -->
+
+    <owl:NamedIndividual rdf:about="#TopPosition">
+        <rdfs:label>Top Position</rdfs:label>
+        <rdfs:comment>Top location for vent installation per KOSHA D-5.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#BottomPosition">
+        <rdfs:label>Bottom Position</rdfs:label>
+        <rdfs:comment>Bottom location for drain installation per KOSHA D-5.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <!-- ================================================================= -->
+    <!-- Annotations and Metadata                                          -->
+    <!-- ================================================================= -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#generatedAtTime"/>
+
+</rdf:RDF>

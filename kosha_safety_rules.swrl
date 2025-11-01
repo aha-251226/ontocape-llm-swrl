@@ -1,0 +1,249 @@
+// ============================================================================
+// KOSHA Safety Rules in SWRL Format
+// Generated from 45 KOSHA regulations (D-5, D-29, D-37, D-52)
+// Paper: "Hierarchical LLM-SWRL Integration for Ontology Expansion"
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// AR (Annotation Review) - Documentation and Identification Rules
+// ----------------------------------------------------------------------------
+
+// AR-1: Drawing Number Assignment
+Drawing(?d) ^ hasDrawingNumber(?d, ?num) ^ swrlb:equal(?num, "") 
+  -> hasViolation(?d, "MissingDrawingNumber")
+
+// AR-2: Unique ID System
+Equipment(?e) ^ hasUniqueID(?e, ?id) ^ swrlb:equal(?id, "") 
+  -> hasViolation(?e, "MissingUniqueID")
+
+// AR-3: Nominal Diameter Specification
+Piping(?p) ^ hasNominalDiameter(?p, ?dn) ^ swrlb:equal(?dn, "") 
+  -> hasViolation(?p, "MissingNominalDiameter")
+
+// AR-4: Line Number Assignment
+Piping(?p) ^ hasLineNumber(?p, ?ln) ^ swrlb:equal(?ln, "") 
+  -> hasViolation(?p, "MissingLineNumber")
+
+// AR-5: Material Specification
+Equipment(?e) ^ hasMaterial(?e, ?mat) ^ swrlb:equal(?mat, "") 
+  -> hasViolation(?e, "MissingMaterialSpec")
+
+// AR-6: Insulation Purpose Indication
+Equipment(?e) ^ hasInsulation(?e, true) ^ hasInsulationPurpose(?e, ?purpose) ^ swrlb:equal(?purpose, "") 
+  -> hasViolation(?e, "MissingInsulationPurpose")
+
+// AR-7: Tracing Type Indication
+Equipment(?e) ^ hasTracing(?e, true) ^ hasTracingType(?e, ?type) ^ swrlb:equal(?type, "") 
+  -> hasViolation(?e, "MissingTracingType")
+
+// AR-8: API Standard Compliance - Nominal Diameter
+Piping(?p) ^ hasNominalDiameter(?p, ?dn) ^ swrlb:lessThan(?dn, 15) 
+  -> hasViolation(?p, "BelowAPIMinimumDiameter")
+
+// AR-9: Outside Diameter per API 5L
+Piping(?p) ^ hasOutsideDiameter(?p, ?od) ^ hasNominalDiameter(?p, ?dn) ^ swrlb:notEqual(?od, ?dn) 
+  -> hasViolation(?p, "OutsideDiameterMismatch")
+
+// AR-10: Valve Failure Mode Specification
+Valve(?v) ^ isAutomatic(?v, true) ^ hasFailureMode(?v, ?fm) ^ swrlb:equal(?fm, "") 
+  -> hasViolation(?v, "MissingFailureMode")
+
+// AR-11: Instrument Tag Display
+Instrument(?i) ^ hasTag(?i, ?tag) ^ swrlb:equal(?tag, "") 
+  -> hasViolation(?i, "MissingInstrumentTag")
+
+// AR-12: Instrument Shape Representation
+Instrument(?i) ^ hasShapeType(?i, ?shape) ^ swrlb:notEqual(?shape, "Circle") 
+  -> hasViolation(?i, "InvalidInstrumentShape")
+
+// AR-13: Controller Type Indication
+Controller(?c) ^ hasControllerType(?c, ?type) ^ swrlb:equal(?type, "") 
+  -> hasViolation(?c, "MissingControllerType")
+
+// AR-14: Revision Record
+Drawing(?d) ^ hasRevision(?d, true) ^ hasRevisionRecord(?d, ?rec) ^ swrlb:equal(?rec, "") 
+  -> hasViolation(?d, "MissingRevisionRecord")
+
+// ----------------------------------------------------------------------------
+// BR (Basic Review) - Essential Design Constraints
+// ----------------------------------------------------------------------------
+
+// BR-1: Equipment Name and ID
+Equipment(?e) ^ hasName(?e, ?name) ^ swrlb:equal(?name, "") 
+  -> hasViolation(?e, "MissingEquipmentName")
+
+// BR-2: Equipment Capacity Specification
+Equipment(?e) ^ hasCapacity(?e, ?cap) ^ swrlb:equal(?cap, 0) 
+  -> hasViolation(?e, "MissingCapacity")
+
+// BR-3: Minimum Pipe Diameter (CRITICAL RULE - Paper Section 4.3)
+Pipe(?p) ^ hasDiameter(?p, ?dia) ^ swrlb:lessThan(?dia, 20) 
+  -> hasSizeViolation(?p, true)
+
+// BR-4: Material Specification for Equipment
+Equipment(?e) ^ hasMaterial(?e, ?mat) ^ swrlb:equal(?mat, "Unknown") 
+  -> hasViolation(?e, "UnspecifiedMaterial")
+
+// BR-5: Power Source Specification
+Machine(?m) ^ hasPowerSource(?m, ?ps) ^ swrlb:equal(?ps, "") 
+  -> hasViolation(?m, "MissingPowerSource")
+
+// BR-6: Insulation Requirement
+Equipment(?e) ^ requiresInsulation(?e, true) ^ hasInsulation(?e, false) 
+  -> hasViolation(?e, "MissingRequiredInsulation")
+
+// BR-7: Equipment Connection Specification
+Equipment(?e) ^ hasConnection(?e, ?conn) ^ swrlb:equal(?conn, "") 
+  -> hasViolation(?e, "MissingConnectionSpec")
+
+// BR-8: Power Connection Details
+Equipment(?e) ^ requiresPower(?e, true) ^ hasPowerConnection(?e, ?pc) ^ swrlb:equal(?pc, "") 
+  -> hasViolation(?e, "MissingPowerConnection")
+
+// BR-9: Drawing Link Reference
+Piping(?p) ^ continuesTo(?p, ?drawing) ^ swrlb:equal(?drawing, "") 
+  -> hasViolation(?p, "MissingDrawingReference")
+
+// BR-10: Tray Count for Towers
+Tower(?t) ^ hasTrayCount(?t, ?count) ^ swrlb:equal(?count, 0) 
+  -> hasViolation(?t, "MissingTrayCount")
+
+// ----------------------------------------------------------------------------
+// CR (Conditional Review) - Context-Dependent Rules
+// ----------------------------------------------------------------------------
+
+// CR-1: Electrical Tracing Temperature Limit (CRITICAL RULE - Paper Section 4.2)
+ElectricalTracing(?e) ^ hasOperatingTemperature(?e, ?t) ^ swrlb:greaterThan(?t, 215) 
+  -> isProhibited(?e, true)
+
+// CR-1b: Electrical Tracing Permitted Range (Complementary Rule)
+ElectricalTracing(?e) ^ hasOperatingTemperature(?e, ?t) ^ swrlb:lessThanOrEqual(?t, 215) 
+  -> isPermitted(?e, true)
+
+// CR-2: Surface Insulation for Personnel Protection
+Equipment(?e) ^ hasSurfaceTemperature(?e, ?temp) ^ swrlb:greaterThan(?temp, 65) ^ hasInsulation(?e, false) 
+  -> requiresPersonnelProtection(?e, true)
+
+// CR-3: Killed Carbon Steel Temperature Limits - Lower Bound
+Equipment(?e) ^ hasMaterial(?e, "KilledCarbonSteel") ^ hasOperatingTemperature(?e, ?t) ^ swrlb:lessThan(?t, -29) 
+  -> hasViolation(?e, "MaterialTempBelowLimit")
+
+// CR-4: Killed Carbon Steel Temperature Limits - Upper Bound
+Equipment(?e) ^ hasMaterial(?e, "KilledCarbonSteel") ^ hasOperatingTemperature(?e, ?t) ^ swrlb:greaterThan(?t, 425) 
+  -> hasViolation(?e, "MaterialTempAboveLimit")
+
+// ----------------------------------------------------------------------------
+// DR (Design Review) - Installation and Spatial Requirements
+// ----------------------------------------------------------------------------
+
+// DR-1: Pump and Compressor Strainer Installation
+Pump(?p) ^ hasStrainer(?p, false) 
+  -> hasViolation(?p, "MissingStrainer")
+
+Compressor(?c) ^ hasStrainer(?c, false) 
+  -> hasViolation(?c, "MissingStrainer")
+
+// DR-2: Control Valve Fail Position
+ControlValve(?v) ^ hasFailPosition(?v, ?pos) ^ swrlb:equal(?pos, "") 
+  -> hasViolation(?v, "UnspecifiedFailPosition")
+
+// DR-3: Vent Location (CRITICAL RULE - Paper Example)
+Vent(?v) ^ isInstalledIn(?v, ?equipment) ^ Tower(?equipment) ^ hasLocation(?v, ?loc) ^ swrlb:notEqual(?loc, "Top") 
+  -> hasViolation(?v, "IncorrectVentLocation")
+
+VerticalVessel(?vessel) ^ Vent(?v) ^ isInstalledIn(?v, ?vessel) ^ hasLocation(?v, ?loc) ^ swrlb:notEqual(?loc, "Top") 
+  -> hasViolation(?v, "IncorrectVentLocation")
+
+// DR-4: Drain Location
+VerticalVessel(?vessel) ^ Drain(?d) ^ isInstalledIn(?d, ?vessel) ^ hasLocation(?d, ?loc) ^ swrlb:notEqual(?loc, "Bottom") 
+  -> hasViolation(?d, "IncorrectDrainLocation")
+
+// DR-5: Vent Diameter Range
+Vent(?v) ^ hasDiameter(?v, ?dia) ^ swrlb:lessThan(?dia, 20) 
+  -> hasViolation(?v, "VentDiameterTooSmall")
+
+Vent(?v) ^ hasDiameter(?v, ?dia) ^ swrlb:greaterThan(?dia, 25) 
+  -> hasViolation(?v, "VentDiameterTooLarge")
+
+// DR-6: Drain Diameter Range
+Drain(?d) ^ hasDiameter(?d, ?dia) ^ swrlb:lessThan(?dia, 20) 
+  -> hasViolation(?d, "DrainDiameterTooSmall")
+
+Drain(?d) ^ hasDiameter(?d, ?dia) ^ swrlb:greaterThan(?dia, 40) 
+  -> hasViolation(?d, "DrainDiameterTooLarge")
+
+// DR-7: Cooling Water Design Temperature
+HeatExchanger(?h) ^ usesCoolingWater(?h, true) ^ hasDesignTemperature(?h, ?temp) ^ swrlb:notEqual(?temp, 90) 
+  -> hasViolation(?h, "IncorrectCoolingWaterTemp")
+
+// DR-8: Liquid Velocity - General Limit
+Piping(?p) ^ conveys(?p, ?fluid) ^ Liquid(?fluid) ^ hasVelocity(?p, ?vel) ^ swrlb:greaterThan(?vel, 6) 
+  -> hasViolation(?p, "ExcessiveLiquidVelocity")
+
+// DR-9: Liquid Velocity - Absolute Maximum
+Piping(?p) ^ conveys(?p, ?fluid) ^ Liquid(?fluid) ^ hasVelocity(?p, ?vel) ^ swrlb:greaterThan(?vel, 10) 
+  -> hasViolation(?p, "CriticalVelocityExceeded")
+
+// DR-10: Minimum Pipe Diameter for Pipe Racks
+Piping(?p) ^ isOnPipeRack(?p, true) ^ hasNominalDiameter(?p, ?dn) ^ swrlb:lessThan(?dn, 50) 
+  -> hasViolation(?p, "BelowRackMinimumDiameter")
+
+// ----------------------------------------------------------------------------
+// ER (Engineering Review) - Quantitative Calculation Rules
+// ----------------------------------------------------------------------------
+
+// ER-1: Vessel Design Pressure (P ≤ 7 MPa) - Option 1
+Vessel(?v) ^ hasMaxOperatingPressure(?v, ?p) ^ swrlb:lessThanOrEqual(?p, 7) ^ hasDesignPressure(?v, ?dp) ^ swrlb:lessThan(?dp, ?p1_8) ^ swrlb:add(?p1_8, ?p, 0.18) 
+  -> hasViolation(?v, "InsufficientDesignPressure_1")
+
+// ER-2: Vessel Design Pressure (P ≤ 7 MPa) - Option 2
+Vessel(?v) ^ hasMaxOperatingPressure(?v, ?p) ^ swrlb:lessThanOrEqual(?p, 7) ^ hasDesignPressure(?v, ?dp) ^ swrlb:lessThan(?dp, ?p1_1) ^ swrlb:multiply(?p1_1, ?p, 1.1) 
+  -> hasViolation(?v, "InsufficientDesignPressure_2")
+
+// ER-3: Vessel Design Pressure (P > 7 MPa) - Option 1
+Vessel(?v) ^ hasMaxOperatingPressure(?v, ?p) ^ swrlb:greaterThan(?p, 7) ^ hasDesignPressure(?v, ?dp) ^ swrlb:lessThan(?dp, ?p0_7) ^ swrlb:add(?p0_7, ?p, 0.7) 
+  -> hasViolation(?v, "InsufficientDesignPressure_High_1")
+
+// ER-4: Vessel Design Pressure (P > 7 MPa) - Option 2
+Vessel(?v) ^ hasMaxOperatingPressure(?v, ?p) ^ swrlb:greaterThan(?p, 7) ^ hasDesignPressure(?v, ?dp) ^ swrlb:lessThan(?dp, ?p1_05) ^ swrlb:multiply(?p1_05, ?p, 1.05) 
+  -> hasViolation(?v, "InsufficientDesignPressure_High_2")
+
+// ER-5: Vessel Design Temperature
+Vessel(?v) ^ hasMaxOperatingTemperature(?v, ?t) ^ hasDesignTemperature(?v, ?dt) ^ swrlb:lessThan(?dt, ?t30) ^ swrlb:add(?t30, ?t, 30) 
+  -> hasViolation(?v, "InsufficientDesignTemperature")
+
+// ER-6: Tank Design Temperature
+Tank(?t) ^ hasStoredMaterialTemp(?t, ?smt) ^ hasDesignTemperature(?t, ?dt) ^ swrlb:lessThan(?dt, ?smt30) ^ swrlb:add(?smt30, ?smt, 30) 
+  -> hasViolation(?t, "InsufficientTankDesignTemp")
+
+// ER-7: Tank Steam Cleaning Temperature
+Tank(?t) ^ isSteamCleaned(?t, true) ^ hasDesignTemperature(?t, ?dt) ^ swrlb:lessThan(?dt, 120) 
+  -> hasViolation(?t, "InsufficientSteamCleaningTemp")
+
+// ER-8: Heat Exchanger Design Pressure (P ≤ 7 MPa)
+HeatExchanger(?h) ^ hasMaxOperatingPressure(?h, ?p) ^ swrlb:lessThanOrEqual(?p, 7) ^ hasDesignPressure(?h, ?dp) ^ swrlb:lessThan(?dp, 0.52) 
+  -> hasViolation(?h, "InsufficientExchangerPressure")
+
+// ER-9: Heat Exchanger Design Pressure (P > 7 MPa)
+HeatExchanger(?h) ^ hasMaxOperatingPressure(?h, ?p) ^ swrlb:greaterThan(?p, 7) ^ hasDesignPressure(?h, ?dp) ^ swrlb:lessThan(?dp, ?p1_05) ^ swrlb:multiply(?p1_05, ?p, 1.05) 
+  -> hasViolation(?h, "InsufficientExchangerPressure_High")
+
+// ER-10: Heat Exchanger Design Temperature
+HeatExchanger(?h) ^ hasInletTemperature(?h, ?it) ^ hasDesignTemperature(?h, ?dt) ^ swrlb:lessThan(?dt, ?it30) ^ swrlb:add(?it30, ?it, 30) 
+  -> hasViolation(?h, "InsufficientExchangerTemp")
+
+// ============================================================================
+// Rule Summary Statistics
+// ============================================================================
+// Total Rules: 45
+// - AR (Annotation Review): 14 rules
+// - BR (Basic Review): 10 rules  
+// - CR (Conditional Review): 4 rules
+// - DR (Design Review): 9 rules
+// - ER (Engineering Review): 8 rules
+//
+// Critical Rules (mentioned in paper):
+// - BR-3: Minimum pipe diameter (Section 4.3, Figure 4)
+// - CR-1: Electrical tracing temperature (Section 4.2, dual-rule example)
+// - DR-3: Vent location (Section 4.1, extraction example)
+// ============================================================================

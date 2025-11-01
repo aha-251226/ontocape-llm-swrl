@@ -1,0 +1,26 @@
+# Core Dependencies
+ontogpt>=0.3.0
+openai>=1.0.0
+
+# Ontology Processing
+owlready2>=0.40
+rdflib>=6.3.0
+
+# NLP & Embeddings
+sentence-transformers>=2.2.0
+transformers>=4.30.0
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Reasoning
+hermit-reasoner>=1.4.6
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Optional: For Jupyter notebooks
+jupyter>=1.0.0
+matplotlib>=3.7.0
