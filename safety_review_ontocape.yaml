@@ -1,0 +1,94 @@
+id: http://w3id.org/ontogpt/safety-review
+name: safety-review
+title: Safety Review Template for OntoCAPE Integration
+description: >-
+  A template for extracting safety review knowledge that maps to OntoCAPE ontology structure.
+  
+prefixes:
+  linkml: https://w3id.org/linkml/
+  safety: http://w3id.org/ontogpt/safety-review/
+  ontocape: file:/C:/OntoCAPE/
+
+default_prefix: safety
+default_range: string
+
+imports:
+  - linkml:types
+  - core
+
+classes:
+
+  SafetyReviewDocument:
+    tree_root: true
+    description: A document containing safety review information
+    is_a: TextWithTriples
+    slot_usage:
+      triples:
+        range: SafetyRequirement
+        annotations:
+          prompt: >-
+            A semi-colon separated list of safety requirements, constraints, or regulations.
+            For example: Vent MUST_BE_INSTALLED_AT TopPosition OF Tower;
+            Piping REQUIRES MinimumDiameter 20mm;
+            SafetyValve FAILURE_MODE FailClosed
+
+  SafetyRequirement:
+    is_a: Triple
+    description: A safety requirement that maps to OntoCAPE system components
+    slot_usage:
+      subject:
+        range: ProcessEquipment
+        description: >-
+          The process equipment or system component (maps to OntoCAPE System class).
+          Examples: Vent, Tower, Piping, SafetyValve, PressureVessel
+      object:
+        range: SafetyConstraint
+        description: >-
+          The safety constraint, limit, or requirement.
+          Examples: TopPosition, MinimumDiameter, FailureMode, OperatingPressure
+      predicate:
+        range: SafetyRelation
+        description: The relationship type between equipment and constraint
+      
+  ProcessEquipment:
+    is_a: NamedEntity
+    description: Process equipment that maps to OntoCAPE System hierarchy
+    annotations:
+      prompt.examples: Vent, Tower, VerticalVessel, Piping, SafetyValve, PressureVessel, Pump, HeatExchanger
+    
+  SafetyConstraint:
+    is_a: NamedEntity
+    description: Safety constraints that map to OntoCAPE Property/Value structure
+    annotations:
+      prompt.examples: TopPosition, BottomPosition, MinimumDiameter, MaximumPressure, FailureMode, OperatingTemperature
+
+  SafetyRelation:
+    is_a: RelationshipType
+    description: Relationship between equipment and safety constraints
+
+enums:
+  EquipmentType:
+    permissible_values:
+      Vent:
+        description: Vent system (maps to OntoCAPE SystemInterface)
+      Tower:
+        description: Tower equipment (maps to OntoCAPE Supersystem)
+      Vessel:
+        description: Pressure vessel (maps to OntoCAPE System)
+      Piping:
+        description: Piping system (maps to OntoCAPE System)
+      Valve:
+        description: Valve component (maps to OntoCAPE Subsystem)
+        
+  ConstraintType:
+    permissible_values:
+      Position:
+        description: Installation position requirement
+      Dimension:
+        description: Size or diameter constraint
+      Pressure:
+        description: Pressure limit or range
+      Temperature:
+        description: Temperature limit or range
+      FailureMode:
+        description: Failure behavior specification

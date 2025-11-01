@@ -1,0 +1,24 @@
+{
+  "research_findings": {
+    "total_sentences_analyzed": 86,
+    "ontogpt_directly_suitable": 79,
+    "requires_alternative_approach": 7,
+    "complexity_breakdown": {
+      "COMPLEX_CONDITIONAL": 5,
+      "GENERAL_REQUIREMENT": 59,
+      "DOCUMENTATION_META": 2,
+      "STANDARD_REFERENCE": 4,
+      "SIMPLE_TECHNICAL": 16
+    },
+    "predicted_ontogpt_limitations": {
+      "documentation_meta_sentences": 2,
+      "complex_conditional_sentences": 5,
+      "average_expected_success_rate": "0.64"
+    },
+    "improvement_recommendations": {
+      "hybrid_processing_needed": true,
+      "template_enhancement_required": true,
+      "domain_specific_preprocessing": true
+    }
+  }
+}
